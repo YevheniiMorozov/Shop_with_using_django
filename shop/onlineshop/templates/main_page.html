@@ -1,0 +1,39 @@
+{% include 'base.html' %}
+
+{% load static %}
+
+{% block sidebar %}
+{% include '_inc/_sidebar.html' %}
+{% endblock %}
+
+{% block content %}
+<br>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for item in object_list %}
+    <div class="col">
+        <div class="card h-100">
+            {% if item.image %}
+            <img src="{{item.image.url}}" class="card-img-top" height="400" width="300" alt="">
+            {% else %}
+            <img src="https://picsum.photos/id/1019/400/300?blur=5" class="card-img-top" alt="">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ item.name }}</h5>
+                <p class="card-text">{{item.description}}</p>
+                <a href="{% url 'product' item.slug %}" class="btn btn-primary">{{item.price}}</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+{% endblock %}
+
+{% comment %}
+{% if item.image %}
+<img src="{{item.image}}" class="card-img-top" alt="...">
+{% else %}
+<img src="https://picsum.photos/id/1019/880/560?blur=5" class="card-img-top" alt="...">
+{% endif %}
+{% endcomment %}

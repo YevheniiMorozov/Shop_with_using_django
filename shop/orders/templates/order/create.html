@@ -1,0 +1,28 @@
+{% include 'base.html' %}
+
+{% block title %}
+Checkout
+{% endblock %}
+
+{% block content %}
+
+<div class="order-info">
+    <ul>
+        {% for item in cart %}
+        <li>
+            {{item.quantity}}x {{ item.product.name }}
+            <span>
+                {{item.total_price}}
+            </span>
+        </li>
+        {% endfor %}
+    </ul>
+    <p> {{ cart.get_total_price }} UAH </p>
+</div>
+<form action="" method="post" class="order-form">
+    {{ form.as_p }}
+    <input type="submit" value="Place order">
+    {% csrf_token %}
+</form>
+
+{% endblock %}

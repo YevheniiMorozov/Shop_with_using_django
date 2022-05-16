@@ -1,0 +1,32 @@
+{% include 'base.html' %}
+
+{% block content %}
+<br>
+<div class="card mb-3">
+    <div class="card-body">
+        <div class="media">
+            {% if item.image %}
+            <img src="{{item.image.url}}" class="mb-3" width="200" height="200" alt="">
+            {% else %}
+            <img src="https://picsum.photos/id/1019/880/560?blur=5"  class="card-img-top" alt="">
+            {% endif %}
+            <div class="media-body">
+                <h5 class="card-title">{{ item.name }}</h5>
+                <p class="card-text">{{item.description}}</p>
+                <br>
+                <p class="card-text">{{item.price}} UAH</p>
+            </div>
+            <form action="{% url 'cart_add' item.id %}" method="post">
+                {% csrf_token %}
+                {{ form }}
+                <input type="submit" value="Add to cart">
+            </form>
+        </div>
+    </div>
+<div class="card-footer text muted">
+    Remainder: {{item.remainder}} | {{item.created}}
+</div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,8 @@
+{% load category_tags %}
+
+<div class="list-group">
+  {% get_categories as cat %}
+  {% for item in cat %}
+  <a href="{% url 'category' item.slug %}" class="list-group-item list-group-item-action">{{ item.name }}</a>
+  {% endfor %}
+</div>

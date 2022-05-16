@@ -1,0 +1,53 @@
+{% include 'base.html' %}
+
+{% block title %}
+Your shopping cart
+{% endblock %}
+
+{% block content %}
+<br>
+
+<table class="cart">
+    <thead>
+    <tr>
+        <th>Image</th>
+        <th>Product</th>
+        <th>||Quantity||</th>
+        <th>Remove</th>
+        <th>||Unit price||</th>
+        <th>Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for item in cart %}
+    {% with product=item.product %}
+    <tr>
+        <td>
+            <a href="{% url 'product' product.slug %}">
+                {% if product.image %}
+                <img src="{{product.image.url}}" class="card-img-top" width="150" height="100" alt="">
+                {% else %}
+                <img src="https://picsum.photos/id/1019/100/100?blur=5" class="card-img-top" alt="">
+                {% endif %}
+            </a>
+        </td>
+        <td>{{ product.name }}</td>
+        <td>||{{ item.quantity }}||</td>
+        <td><a href="{% url 'cart_remove' product.id%}">Remove</a></td>
+        <td class="num">||{{ item.price }}||</td>
+        <td class="num">{{ item.total_price }}</td>
+    </tr>
+    {% endwith %}
+    {% endfor %}
+    <tr class="total">
+        <td>Total</td>
+        <td colspan="4"></td>
+        <td class="num">{{ cart.get_total_price }} UAH</td>
+    </tr>
+    </tbody>
+</table>
+<p class="text-right">
+    <a href="{% url 'home' %}" class="button light">Continue shopping</a>
+    <a href="{% url 'order_create' %}" class="button">Checkout</a>
+</p>
+{% endblock %}
